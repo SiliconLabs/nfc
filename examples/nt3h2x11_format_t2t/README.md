@@ -116,7 +116,7 @@ If the board you are trying to use is not listed above, you can add to the top b
 | :----- | :----- | :----- |
 | Application | [main.c](src/main.c) | - |
 | Tag | - | [T2T specification](https://nfc-forum.org/product/nfc-forum-type-2-tag-specification-version-1-0/) |
-| NT3H2x11 Driver | [nt3h2x11.c](https://github.com/SiliconLabs/nfc_library/blob/master/nt3h2x11/src/nt3h2x11.c), [nt3h2x11_i2c.c](https://github.com/SiliconLabs/nfc_library/blob/master/nt3h2x11/src/nt3h2x11_i2c.c) | [NT3H2111_2211.pdf](https://www.nxp.com/docs/en/data-sheet/NT3H2111_2211.pdf) |
+| NT3H2x11 Driver | [nt3h2x11.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11.c), [nt3h2x11_i2c.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11_i2c.c) | [NT3H2111_2211.pdf](https://www.nxp.com/docs/en/data-sheet/NT3H2111_2211.pdf) |
 | emlib | Silabs SDK | - |
 
 
@@ -124,7 +124,7 @@ If the board you are trying to use is not listed above, you can add to the top b
 
 This guide is using EFR32xG22 BRD4182A as example.
 
-1. Clone [platform hardware driver](https://github.com/SiliconLabs/platform_hardware_drivers) to somewhere. We will be needing the [nfc_nt3h2x11]() driver.
+1. Clone [platform hardware driver](https://github.com/SiliconLabs/platform_hardware_drivers) to somewhere. We will be needing the [nfc_nt3h2x11](https://github.com/SiliconLabs/platform_hardware_drivers/tree/master/nfc_nt3h2x11) driver.
 2. Create an empty c project through MCU Project for the radio board you are using. 
     1. Click "New" button
 
@@ -182,7 +182,7 @@ This guide is using EFR32xG22 BRD4182A as example.
 
     <img src="../_images/ig_retarget_files_proj.png" width="400">
 
-5. Drag [nfc_nt3h2x11]() driver into the project.
+5. Drag [nfc_nt3h2x11](https://github.com/SiliconLabs/platform_hardware_drivers/tree/master/nfc_nt3h2x11) driver into the project.
 
     <img src="../_images/ig_nt3h2x11_driver.png" width="400">
 
