@@ -14,6 +14,9 @@
 # NT3H2x11 I2C Write Tag NDEF
 Write an NDEF message into NT3H2x11 EEPROM through I2C interface.
 
+> NT3H2x11 stands for NT3H2111 and NT3H2211.
+
+
 
 ## How it works
 WSTK writes an NDEF message to NT3H2x11 via I2C interface. Then use a NFC reader to read the updated content in NT3H2x11. 
@@ -30,7 +33,7 @@ You need one supported Silicon Labs board, a NT3H2x11 board and a NFC reader dev
 
 [OM23221ARD](https://www.nxp.com/products/rfid-nfc/nfc-hf/ntag/nfc-tags-for-electronics/ntag-ic-iplus-i-kit-for-arduino-pinout:OM23221ARD)
 
-<img src="../_images/mg12_om23221.jpg" width="900">
+<img src="../_images/brd4161a_om23221.jpg" width="900">
 
 [Mikroe NFC TAG 2 CLICK](https://www.mikroe.com/nfc-tag-2-click)
 
@@ -216,6 +219,31 @@ This guide is using EFR32xG22 BRD4182A as example.
     <img src="images/ig_inc_paths.png" width="800">
 
 10. Should be able to build.
+
+
+## SLS Import Instructions
+
+V4 SLS project is based on BRD4162A radio board. 
+
+1. Import the sls project located in [SimplicityStudio](SimplicityStudio), as described in [this guide](https://www.silabs.com/community/software/simplicity-studio/knowledge-base.entry.html/2018/09/26/exporting_importing-IEqP)
+
+    Broken links would appear in the project.
+
+    <img src="images/ig_broken_links.png" width="600">
+
+2. Delete broken folder links.  
+
+    <img src="images/ig_delete_links.png" width="600">
+
+    Folders are copied at the creation of sls project, but since original project was using links to the folders, the imported project would have broken links. Deleting broken links would allow copied folder to show up. Just wait for a few seconds or refresh the project, the right folder should show up.
+
+    <img src="../_images/ig_refresh_proj.png" height="300">
+
+    <img src="images/ig_folder_fixed.png" height="300">
+
+3. Replace main.c with [main.c](src/main.c) in [src](src) folder. 
+
+4. Should be able to build.
 
 
 ## Disclaimer

@@ -1,6 +1,6 @@
 /***************************************************************************//**
  * @file  main.c
- * @brief Format NT3H2x11 sector 0 to make it T2T compatible.
+ * @brief Format NT3H2x11 block 0 to make it T2T compatible.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -219,7 +219,7 @@ nt3h2x11_init_t nt3h2x11_init_only_i2c = {
     .fd_init = { .enable = false }
 };
 
-uint8_t sector0_data[] = {
+uint8_t block0_data[] = {
         /* Byte 0 needs to be I2C address as writing to
          * it changes the I2C address.
          * See NT3H2111_2211 data sheet section 9.6 for details. */
@@ -254,8 +254,8 @@ int main(void)
     /* Print project name. */
     printf("\r\nNT3H2X11 T2T Format via I2C.\r\n");
 
-    /* Write to NT3H2x11 sector 0. */
-    while (nt3h2x11_write_block(0, sector0_data) != i2cTransferDone);
+    /* Write to NT3H2x11 block 0. */
+    while (nt3h2x11_write_block(0, block0_data) != i2cTransferDone);
 
     printf("Format completed.\r\n");
 
