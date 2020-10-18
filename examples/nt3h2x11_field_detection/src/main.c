@@ -45,7 +45,7 @@
 #include "nt3h2x11.h"
 
 /* Define your board here */
-#define BRD4161A 1
+#define BRD4162A 1
 
 /* EFR32xG12 Boards*/
 #if    (BRD4103A == 1)\

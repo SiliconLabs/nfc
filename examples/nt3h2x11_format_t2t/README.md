@@ -12,15 +12,18 @@
 </table>
 
 # NT3H2x11 Format T2T 
-Format NT3H2x11 to make it Type 2 Tag (T2T) compatible. The factory state of NT3H2x11 is not formated to be T2T compatible, this would make smart phones not able read/write the content in NT3H2x11. This example can also used for modifying T2T_Area_Size.
+Format NT3H2x11 (NT3H2111 and NT3H2211) to make it Type 2 Tag (T2T) compatible. The factory state of NT3H2x11 is not formated to be T2T compatible, this would make smart phones not able read/write the content in NT3H2x11. This example can also used for modifying T2T_Area_Size.
+
+> NT3H2x11 stands for NT3H2111 and NT3H2211.
+
 
 
 ## How it works
 WSTK writes correct Capability Container (CC) value to NT3H2x11 block 0 via I2C interface to make it T2T compatible.
 
-CC are the last 4 bytes of sector 0, as shown below, of any T2T compliant NFC tag IC. these bytes need to be set correctly in order for smartphone to interact with any T2T IC, such as NT3H2x11. 
+CC are the last 4 bytes of block 0, as shown below, of any T2T compliant NFC tag IC. these bytes need to be set correctly in order for smartphone to interact with any T2T IC, such as NT3H2x11. Due to fixed 16 byte R/W size of NT3H2x11, we have to write to the entire block 0 in order to set CC.
 
-<img src="images/t2t_sector0.png" width="1000">
+<img src="images/t2t_block0.png" width="1000">
 
 The first byte needs to be set to 0xE1, it's a magic number that indicates it's is a T2T.
 
@@ -46,7 +49,7 @@ You need one WSTK board, a NT3H2x11 board.
 
 [OM23221ARD](https://www.nxp.com/products/rfid-nfc/nfc-hf/ntag/nfc-tags-for-electronics/ntag-ic-iplus-i-kit-for-arduino-pinout:OM23221ARD)
 
-<img src="../_images/mg12_om23221.jpg" width="900">
+<img src="../_images/brd4161a_om23221.jpg" width="900">
 
 [Mikroe NFC TAG 2 CLICK](https://www.mikroe.com/nfc-tag-2-click)
 
@@ -224,6 +227,31 @@ This guide is using EFR32xG22 BRD4182A as example.
     <img src="images/ig_inc_paths.png" width="800">
 
 10. Should be able to build.
+
+
+## SLS Import Instructions
+
+V4 SLS project is based on BRD4162A radio board. 
+
+1. Import the sls project located in [SimplicityStudio](SimplicityStudio), as described in [this guide](https://www.silabs.com/community/software/simplicity-studio/knowledge-base.entry.html/2018/09/26/exporting_importing-IEqP)
+
+    Broken links would appear in the project.
+
+    <img src="images/ig_broken_links.png" width="600">
+
+2. Delete broken folder links.  
+
+    <img src="images/ig_delete_links.png" width="600">
+
+    Folders are copied at the creation of sls project, but since original project was using links to the folders, the imported project would have broken links. Deleting broken links would allow copied folder to show up. Just wait for a few seconds or refresh the project, the right folder should show up.
+
+    <img src="../_images/ig_refresh_proj.png" height="300">
+
+    <img src="images/ig_folder_fixed.png" height="300">
+
+3. Replace main.c with [main.c](src/main.c) in [src](src) folder. 
+
+4. Should be able to build.
 
 
 ## Disclaimer
