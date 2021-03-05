@@ -1,6 +1,6 @@
 /***************************************************************************//**
- * @file   t2t.h
- * @brief  Type 2 Tag related definitions.
+ * @file   nfc_dbg.h
+ * @brief  Top NFC library debug control.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -36,23 +36,18 @@
 *
 ... */
 
-#ifndef __T2T_H__
-#define __T2T_H__
+#ifndef __NFC_DBG_H__
 
-#define T2T_CMD_READ                                (0x30)
-#define T2T_CMD_WRITE                               (0xA2)
-#define T2T_CMD_SEC_SEL                             (0xC2)
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief NFC Library debug control definitions.
+ * @{
+ ******************************************************************************/
 
-#define T2T_RSP_ACK                                 (0x0A)
+#define __NFC_DBG_H__
 
-#define T2T_CC0                                     (0xE1)
-#define T2T_CC1_VERSION_1_0                         (0x10)
-
-#define NFC_T2T_NULL_TLV                            (0x00)
-#define NFC_T2T_LOCK_CONTROL_TLV                    (0x01)
-#define NFC_T2T_MEMORY_CONTRO_TLV                   (0x02)
-#define NFC_T2T_NDEF_MESSAGE_TLV                    (0x03)
-#define NFC_T2T_PROPRIETARY_TLV                     (0xFD)
-#define NFC_T2T_TERMINATOR_TLV                      (0xFE)
+#define NDEF_DBG      0
+#define TAG_DBG       1
+#define NCI_DBG       1
 
 #endif

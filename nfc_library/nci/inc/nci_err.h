@@ -1,6 +1,6 @@
 /***************************************************************************//**
- * @file   t2t.h
- * @brief  Type 2 Tag related definitions.
+ * @file   nci_err.h
+ * @brief  NCI error codes.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -29,30 +29,23 @@
  ******************************************************************************/
 
 /* ...
-*
-* EXPERIMENTAL QUALITY
-* This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
-* This code will not be maintained.
-*
+ *
+ * EXPERIMENTAL QUALITY
+ * This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
+ * This code will not be maintained.
+ *
 ... */
 
-#ifndef __T2T_H__
-#define __T2T_H__
+#ifndef __NCI_ERR_H__
+#define __NCI_ERR_H__
 
-#define T2T_CMD_READ                                (0x30)
-#define T2T_CMD_WRITE                               (0xA2)
-#define T2T_CMD_SEC_SEL                             (0xC2)
-
-#define T2T_RSP_ACK                                 (0x0A)
-
-#define T2T_CC0                                     (0xE1)
-#define T2T_CC1_VERSION_1_0                         (0x10)
-
-#define NFC_T2T_NULL_TLV                            (0x00)
-#define NFC_T2T_LOCK_CONTROL_TLV                    (0x01)
-#define NFC_T2T_MEMORY_CONTRO_TLV                   (0x02)
-#define NFC_T2T_NDEF_MESSAGE_TLV                    (0x03)
-#define NFC_T2T_PROPRIETARY_TLV                     (0xFD)
-#define NFC_T2T_TERMINATOR_TLV                      (0xFE)
+typedef enum {
+    nci_err_none                                = 0x00,
+    nci_err_payload_exceed_mtu                  = 0x01,
+    nci_err_tml                                 = 0x02,
+    nci_err_uknown_mt                           = 0x03,
+    nci_err_uknown_gid                          = 0x04,
+    nci_err_uknown_oid                          = 0x05,
+} nci_err_t;
 
 #endif

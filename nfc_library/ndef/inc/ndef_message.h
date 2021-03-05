@@ -1,6 +1,6 @@
 /***************************************************************************//**
  * @file   ndef_message.h
- * @brief  APIs and defines for NDEF Message.
+ * @brief  Definitions, types and APIs for NDEF Message.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -37,11 +37,22 @@
 ... */
 
 #ifndef __NDEF_MESSAGE_H__
+
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief Definitions, types and APIs for NDEF Message.
+ * @{
+ ******************************************************************************/
+
 #define __NDEF_MESSAGE_H__
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "ndef_record.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /// NDEF message validation error type.
 typedef enum {
@@ -68,4 +79,9 @@ typedef struct {
 
 ndef_message_encode_result_t ndef_message_encode (uint8_t *message_buff, ndef_record_t* message);
 
+#ifdef __cplusplus
+}
 #endif
+/** @} (end addtogroup NFC Library) */
+#endif
+

@@ -1,6 +1,6 @@
 /***************************************************************************//**
- * @file   t2t.h
- * @brief  Type 2 Tag related definitions.
+ * @file   nci_nxp_ext.h
+ * @brief  NXP proprietary extension for NCI.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -29,30 +29,52 @@
  ******************************************************************************/
 
 /* ...
-*
-* EXPERIMENTAL QUALITY
-* This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
-* This code will not be maintained.
-*
+ *
+ * EXPERIMENTAL QUALITY
+ * This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
+ * This code will not be maintained.
+ *
 ... */
 
-#ifndef __T2T_H__
-#define __T2T_H__
+#ifndef __NCI_NXP_EXT_H__
 
-#define T2T_CMD_READ                                (0x30)
-#define T2T_CMD_WRITE                               (0xA2)
-#define T2T_CMD_SEC_SEL                             (0xC2)
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief NXP proprietary extension for NCI.
+ * @{
+ ******************************************************************************/
 
-#define T2T_RSP_ACK                                 (0x0A)
+#define __NCI_NXP_EXT_H__
 
-#define T2T_CC0                                     (0xE1)
-#define T2T_CC1_VERSION_1_0                         (0x10)
+#include "nci_err.h"
 
-#define NFC_T2T_NULL_TLV                            (0x00)
-#define NFC_T2T_LOCK_CONTROL_TLV                    (0x01)
-#define NFC_T2T_MEMORY_CONTRO_TLV                   (0x02)
-#define NFC_T2T_NDEF_MESSAGE_TLV                    (0x03)
-#define NFC_T2T_PROPRIETARY_TLV                     (0xFD)
-#define NFC_T2T_TERMINATOR_TLV                      (0xFE)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+typedef enum {
+    nci_nxp_rf_protocol_15693                           = 0x06,
+    nci_nxp_rf_protocol_mifare_classic                  = 0x80,
+    nci_nxp_rf_protocol_kovio                           = 0x8A
+} nci_nxp_rf_protocol_t;
+
+typedef struct {
+    uint8_t  status;
+    uint8_t* fw_build_num;
+} nci_proprietary_nxp_act_rsp_t;
+
+typedef union {
+    nci_proprietary_nxp_act_rsp_t proprietary_nxp_act_rsp;
+} nci_proprietary_data_t;
+
+nci_err_t nci_proprietary_nxp_act (void);
+
+nci_err_t nci_proprietary_nxp_rf_pres_check (void);
+
+nci_err_t nci_proprietary_nxp_test_get_register (void);
+
+#ifdef __cplusplus
+}
+#endif
+/** @} (end addtogroup NFC Library) */
 #endif

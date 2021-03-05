@@ -29,17 +29,28 @@
  ******************************************************************************/
 
 /* ...
- *
- * EVALUATION QUALITY
- * This code has been minimally tested to ensure that it builds with the specified dependency versions and is suitable as a demonstration for evaluation purposes only.
- * This code will be maintained at the sole discretion of Silicon Labs.
- *
+*
+* EXPERIMENTAL QUALITY
+* This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
+* This code will not be maintained.
+*
 ... */
 
 #ifndef __SERIAL_H__
+
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief Custom serial output APIs.
+ * @{
+ ******************************************************************************/
+
 #define __SERIAL_H__
 
 #include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void serial_put_hex (const uint8_t *data, const uint32_t length);
 
@@ -47,4 +58,9 @@ void serial_put_ascii (const uint8_t *data, const uint32_t length);
 
 void serial_put_hex_and_ascii (const uint8_t *data, const uint32_t length);
 
+#ifdef __cplusplus
+}
 #endif
+/** @} (end addtogroup NFC Library) */
+#endif
+

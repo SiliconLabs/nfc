@@ -1,6 +1,6 @@
 /***************************************************************************//**
- * @file   t2t.h
- * @brief  Type 2 Tag related definitions.
+ * @file   t4t.h
+ * @brief  Type 4 Tag related definitions and APIs.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -36,23 +36,59 @@
 *
 ... */
 
-#ifndef __T2T_H__
-#define __T2T_H__
 
-#define T2T_CMD_READ                                (0x30)
-#define T2T_CMD_WRITE                               (0xA2)
-#define T2T_CMD_SEC_SEL                             (0xC2)
+#ifndef __T4T_H__
+#define __T4T_H__
+#include <stdint.h>
 
-#define T2T_RSP_ACK                                 (0x0A)
+#define T4T_NDEF_FILE_CTRL_TLV_TYPE                  (0x04)
+#define T4T_PROPRIETARY_FILE_CTRL_TLV_TYPE           (0x05)
+#define T4T_ENDEF_FILE_CTRL_TLV_TYPE                 (0x06)
+#define T4T_EPROPRIETARY_FILE_CTRL_TLV_TYPE          (0x07)
 
-#define T2T_CC0                                     (0xE1)
-#define T2T_CC1_VERSION_1_0                         (0x10)
+#define T4T_NDEF_FILE_CTRL_TLV_LENGTH                (6)
 
-#define NFC_T2T_NULL_TLV                            (0x00)
-#define NFC_T2T_LOCK_CONTROL_TLV                    (0x01)
-#define NFC_T2T_MEMORY_CONTRO_TLV                   (0x02)
-#define NFC_T2T_NDEF_MESSAGE_TLV                    (0x03)
-#define NFC_T2T_PROPRIETARY_TLV                     (0xFD)
-#define NFC_T2T_TERMINATOR_TLV                      (0xFE)
+///
+typedef struct {
+  uint16_t fid;
+  uint16_t size;
+  uint8_t  read_access;
+  uint8_t  write_access;
+} t4t_ndef_file_ctrl_t;
+
+///
+typedef struct {
+  uint16_t fid;
+  uint32_t size;
+  uint8_t  read_access;
+  uint8_t  write_access;
+} t4t_endef_file_ctrl_t;
+
+///
+typedef struct {
+  uint16_t fid;
+  uint16_t size;
+  uint8_t  read_access;
+  uint8_t  write_access;
+} t4t_proprietary_file_ctrl_t;
+
+///
+typedef struct {
+  uint16_t fid;
+  uint32_t size;
+  uint8_t  read_access;
+  uint8_t  write_access;
+} t4t_eproprietary_file_ctrl_t;
+
+///
+typedef struct {
+  uint8_t                       t4t_vno;
+  uint16_t                      mle;
+  uint16_t                      mlc;
+  t4t_ndef_file_ctrl_t          ndef_file_ctrl;
+  t4t_endef_file_ctrl_t         endef_file_ctrl;
+  t4t_proprietary_file_ctrl_t  *prop_file_ctrls;
+  t4t_eproprietary_file_ctrl_t *eprop_file_ctrls;
+} t4t_cc_file_t;
 
 #endif

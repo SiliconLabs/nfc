@@ -1,6 +1,6 @@
 /***************************************************************************//**
- * @file   t2t.h
- * @brief  Type 2 Tag related definitions.
+ * @file   nci_tml.h
+ * @brief  Types and definitions for NCI TML.
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -29,30 +29,40 @@
  ******************************************************************************/
 
 /* ...
-*
-* EXPERIMENTAL QUALITY
-* This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
-* This code will not be maintained.
-*
+ *
+ * EXPERIMENTAL QUALITY
+ * This code has not been formally tested and is provided as-is.  It is not suitable for production environments.
+ * This code will not be maintained.
+ *
 ... */
 
-#ifndef __T2T_H__
-#define __T2T_H__
+#ifndef __NCI_TML_H__
 
-#define T2T_CMD_READ                                (0x30)
-#define T2T_CMD_WRITE                               (0xA2)
-#define T2T_CMD_SEC_SEL                             (0xC2)
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief Types and definitions for NCI TML.
+ * @{
+ ******************************************************************************/
 
-#define T2T_RSP_ACK                                 (0x0A)
+#define __NCI_TML_H__
 
-#define T2T_CC0                                     (0xE1)
-#define T2T_CC1_VERSION_1_0                         (0x10)
+#include <stdint.h>
 
-#define NFC_T2T_NULL_TLV                            (0x00)
-#define NFC_T2T_LOCK_CONTROL_TLV                    (0x01)
-#define NFC_T2T_MEMORY_CONTRO_TLV                   (0x02)
-#define NFC_T2T_NDEF_MESSAGE_TLV                    (0x03)
-#define NFC_T2T_PROPRIETARY_TLV                     (0xFD)
-#define NFC_T2T_TERMINATOR_TLV                      (0xFE)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+typedef enum {
+    nci_tml_err_none            = 0x00,
+    nci_tml_err_comm_bus        = 0x01
+} nci_tml_err_t;
+
+extern nci_tml_err_t nci_tml_receive (uint8_t *packet);
+
+extern nci_tml_err_t nci_tml_transceive (uint8_t *packet);
+
+#ifdef __cplusplus
+}
+#endif
+/** @} (end addtogroup NFC Library) */
 #endif

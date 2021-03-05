@@ -91,29 +91,29 @@ static uint8_t ndef_record_header_encode (ndef_record_header_t header) {
  * @param[in] header_byte
  *  Raw header byte to be decoded
  *****************************************************************************/
-static void ndef_record_header_decode (ndef_record_header_t header, uint8_t header_byte) {
+static void ndef_record_header_decode (ndef_record_header_t *header, uint8_t header_byte) {
     /* MB(Message Begin) bit */
     if ((header_byte & NDEF_RECORD_HEADER_MB_M)) {
-        header.mb = true;
+        header->mb = true;
     }
     /* ME(Message End) bit */
     if ((header_byte & NDEF_RECORD_HEADER_ME_M)) {
-        header.me = true;
+        header->me = true;
     }
     /* CF(Chunk Flag) bit */
     if ((header_byte & NDEF_RECORD_HEADER_CF_M)) {
-        header.cf = true;
+        header->cf = true;
     }
     /* SR(Short Record) bit */
     if ((header_byte & NDEF_RECORD_HEADER_SR_M)) {
-        header.sr = true;
+        header->sr = true;
     }
     /* IL(Id Length) bit */
     if ((header_byte & NDEF_RECORD_HEADER_IL_M)) {
-        header.il = true;
+        header->il = true;
     }
     /* set TNF(Type Name Format) */
-    header.tnf = (header_byte & NDEF_RECORD_HEADER_TNF_M);
+    header->tnf = (header_byte & NDEF_RECORD_HEADER_TNF_M);
 }
 
 /**************************************************************************//**
@@ -287,7 +287,7 @@ void ndef_record_decode (ndef_record_t* record, uint8_t *record_buff) {
     /* Initialize index for navigating through the record buffer. */
     uint32_t index = 0;
     /* Decode header. */
-    ndef_record_header_decode(record->header, record_buff[index++]);
+    ndef_record_header_decode(&record->header, record_buff[index++]);
     /* Set TYPE LENGTH. */
     record->type_length = record_buff[index++];
     /* Check if it's a short record. */

@@ -37,11 +37,22 @@
 ... */
 
 #ifndef __BLUETOOTH_HANDOVER_H__
+
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief NFC Bluetooth handover definitions, types and APIs.
+ * @{
+ ******************************************************************************/
+
 #define __BLUETOOTH_HANDOVER_H__
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "../../ndef/inc/ndef_record.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * Check Supplement to Bluetooth Core Specification Part A Section 1 for All AD Types.
@@ -155,4 +166,8 @@ void ch_bluetooth_le_carrier_configuration_record_encode (ndef_record_t* record,
 void ch_bluetooth_le_carrier_configuration_record_decode ( ndef_record_t* record, bt_carrier_config_t* config);
 
 
+#ifdef __cplusplus
+}
+#endif
+/** @} (end addtogroup NFC Library) */
 #endif

@@ -37,10 +37,21 @@
 ... */
 
 #ifndef __NDEF_RECORD_H__
+
+/***************************************************************************//**
+ * @addtogroup NFC Library
+ * @brief APIs and defines for NDEF record.
+ * @{
+ ******************************************************************************/
+
 #define __NDEF_RECORD_H__
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* some NFC forum global well-known types */
 #define NDEF_RTD_WKT_GLOBAL_SMART_POSTER             "Sp"    // urn:nfc:wkt:Sp
@@ -209,4 +220,8 @@ ndef_record_encode_result_t ndef_record_encode (ndef_record_t record, uint8_t *r
 
 void ndef_record_decode (ndef_record_t* record, uint8_t *record_buff);
 
+#ifdef __cplusplus
+}
+#endif
+/** @} (end addtogroup NFC Library) */
 #endif
