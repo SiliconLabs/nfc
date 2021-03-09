@@ -160,8 +160,3 @@ Launch a serial terminal and use a T2T tag to approach PN71x0 when running this 
         <img src="images/ig_inc_paths.png" width="500">
 
 8. Should be able to build and run.
-
-
-
-### Needed Include Paths
-
