@@ -43,10 +43,10 @@ You can use a WSTK with jumper wires and following the pinouts below. You can al
 | NT3H2x11 Pin | WSTK EXP Pin | Note |
 | :-----: | :-----: | :----- |
 | GND | EXP 1  | |
-| FD  | EXP 14 | defined in [main.c](src/main.c) |
+| FD  | EXP 14 | defined in [app.c](src/app.c) |
 | VCC | EXP 20 | |
 
-If the board you are trying to use is not listed above, you can add to the top board pinout macros in [main.c](src/main.c#L50) accordingly to add support.
+If the board you are trying to use is not listed above, you can add to the top board pinout macros in [app.c](src/app.c) accordingly to add support.
 
 
 ## Project Hierarchy
@@ -62,7 +62,7 @@ If the board you are trying to use is not listed above, you can add to the top b
 
 | Layer | Source Files | Docs |
 | :----- | :----- | :----- |
-| Application | [main.c](src/main.c) | - |
+| Application | [app.c](src/app.c) | - |
 | NT3H2x11 Driver | [nt3h2x11.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11.c), [nt3h2x11_fd.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11_fd.c) | [NT3H2111_2211.pdf](https://www.nxp.com/docs/en/data-sheet/NT3H2111_2211.pdf) |
 | emlib | Silabs SDK | - |
 
@@ -116,7 +116,7 @@ Simply use a NFC reader device to approach NT3H2x11 coil. When NFC reader activa
 
     Board macro can be found in app.c.
 
-    <img src="../_images/ig_board_macro.png" width="500">
+    <img src="../_images/ig_board_macro_with_nt3h2x11.png" width="500">
 
     Board Number can be found on the back of boards like this.
     
@@ -134,7 +134,7 @@ Simply use a NFC reader device to approach NT3H2x11 coil. When NFC reader activa
         /${ProjName}/nfc_nt3h2x11/inc
         ```
 
-        <img src="../_images/ig_add_inc_paths.png" width="900">
+        <img src="../_images/ig_add_inc_paths_with_nt3h2x11.png" width="900">
 
     3. Should look like below when finish.
 

@@ -48,6 +48,6 @@
 
 #define NDEF_DBG      0
 #define TAG_DBG       1
-#define NCI_DBG       1
+#define NCI_DBG       0
 
 #endif

@@ -11,81 +11,60 @@
   </tr>
 </table>
 
-# NT3H2x11 I2C Write Tag NDEF
-Write an NDEF message into NT3H2x11 EEPROM through I2C interface.
+# NCI PN71x0 T2T Write
 
-> NT3H2x11 stands for NT3H2111 and NT3H2211.
+This project demonstrates how to write a NDEF message into a T2T tag with PN71x0.
 
-
-
-## Gecko SDK version
-v3.x
+> PN71x0 stands for PN7120 and PN7150.
 
 
 ## Hardware Setup
-You need one supported Silicon Labs board, a NT3H2x11 board and a NFC reader device such as a smart phone. 
+You need one supported Silicon Labs board, a PN71x0 board, a T2T tag and a NFC reader device, such as a smart phone, to read the updated content.
 
-### NT3H2x11 boards
+### PN71x0 boards
 
-[Mikroe NFC TAG 2 CLICK](https://www.mikroe.com/nfc-tag-2-click)
+[Mikroe NFC CLICK](https://www.mikroe.com/nfc-click) (PN7120)
 
-<img src="../_images/brd4314a_nfc_tag_2_click.jpg" width="500">
+<img src="../_images/brd4314a_nfc_click.jpg" width="500">
 
-### NFC Reader
-- Smart phone NFC app: Download a NFC app on iPhone or Android and use it to read the tag.
-- Newer Phone with more recent OS: OS itself would poll for NFC tag, such as iOS 12+
-- Embedded NFC reader: More control, but content may have to be parsed by yourslef.
+[Mikroe NFC 2 CLICK](https://www.mikroe.com/nfc-2-click) (PN7150)
+
+<img src="../_images/brd4314a_nfc_2_click.jpg" width="500">
+
 
 ## Supported Silicon Labs Boards
 
-You can use a WSTK with Jumpers and following the pinout below. You can also use Explorer Kit, such as [BGM220P Explorer Kit](https://www.silabs.com/development-tools/wireless/bluetooth/bgm220-explorer-kit) and plug in [Mikroe NFC TAG 2 CLICK](https://www.mikroe.com/nfc-tag-2-click) directly.
+You can use a WSTK with Jumpers and following the pinout below. You can also use Explorer Kit, such as [BGM220P Explorer Kit](https://www.silabs.com/development-tools/wireless/bluetooth/bgm220-explorer-kit) and plug in [Mikroe NFC CLICK](https://www.mikroe.com/nfc-click) or [Mikroe NFC 2 CLICK](https://www.mikroe.com/nfc-2-click) directly.
 
 
-### Default Pinout
+### Default Pinouts
 
 The following table covers most of the boards.
 
-| NT3H2x11 Pin | WSTK EXP Pin | Note |
+| PN71x0 Pin | WSTK EXP Pin | Note |
 | :-----: | :-----: | :----- |
 | GND | EXP 1 | |
 | SCL | EXP 15| defined in [app.c](src/app.c) |
 | SDA | EXP 16| defined in [app.c](src/app.c) |
+| VEN | EXP 11| defined in [app.c](src/app.c) |
+| IRQ | EXP 13| defined in [app.c](src/app.c) |
 | VCC | EXP 20| |
 
-In the case EXP 15 and EXP 16 are not connected, EXP 8 and EXP 10 are used for I2C. This applies to all xG21 radio boards.
-
-| NT3H2x11 Pin | WSTK EXP Pin | Note |
-| :-----: | :-----: | :----- |
-| GND | EXP 1 | |
-| SDA | EXP 8 | defined in [app.c](src/app.c) |
-| SCL | EXP 10| defined in [app.c](src/app.c) |
-| VCC | EXP 20| |
-
-As for BRD4309B and BRD4183A whose GPIO pins are quite limited, VCOM pins are utilized for I2C (VCOM will not be available).
-
-| NT3H2x11 Pin | WSTK EXP Pin | Note |
-| :-----: | :-----: | :----- |
-| GND | EXP 1 | |
-| SDA | EXP 12| defined in [app.c](src/app.c) |
-| SCL | EXP 14| defined in [app.c](src/app.c) |
-| VCC | EXP 20| |
-
+In the case EXP 15 and EXP 16 are not connected, EXP 8 and EXP 10 are used for I2C. This applies to all xG21 devices.
 If the board you are trying to use is not listed above, you can add to the top board pinout macros in [app.c](src/app.c) accordingly to add support.
 
 
 ## Project Hierarchy
 ```
- -------------------------
-|       Application       |
-|-------------------------|
-|           NDEF          |
-|-------------------------|
-| Tag (T2T TLV Container) |
-|-------------------------|
-|     NT3H2x11 Driver     |
-|-------------------------|
-|          emlib          |
- -------------------------
+ -----------------
+|   Application   |----\
+|-----------------|    |
+|       NDEF      |    |(Init, Reset)  
+|-----------------|    |       -----------------
+|       TAG       |    \----> |                 |
+|-----------------|           |  PN71x0 Driver  |
+|       NCI       |--(TML)--> |                 |
+ -----------------             -----------------
 ```
 
 | Layer | Source Files | Docs |
@@ -93,26 +72,21 @@ If the board you are trying to use is not listed above, you can add to the top b
 | Application | [app.c](src/app.c) | - |
 | NDEF | [ndef_record.c](../../nfc_library/ndef/src/ndef_record.c), [ndef_message.c](../../nfc_library/ndef/src/ndef_message.c) | [NDEF specification](https://nfc-forum.org/product/nfc-data-exchange-format-ndef-technical-specification/) |
 | Tag | [tlv.c](../../nfc_library/common/src/tlv.c) | [T2T specification](https://nfc-forum.org/product/nfc-forum-type-2-tag-specification-version-1-0/) |
-| NT3H2x11 Driver | [nt3h2x11.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11.c), [nt3h2x11_i2c.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11_i2c.c) | [NT3H2111_2211.pdf](https://www.nxp.com/docs/en/data-sheet/NT3H2111_2211.pdf) |
+| NCI | [nci.c](../../nfc_library/nci/src/nci.c), [nci_nxp_ext.c](../../nfc_library/nci/src/nci_nxp_ext.c) | [NCI specification](https://nfc-forum.org/product/nfc-controller-interface-nci-technical-specification-2-1/), [PN7120 User Manual](https://www.nxp.com/docs/en/user-guide/UM10819.pdf), [PN7150 User Manual](https://www.nxp.com/docs/en/user-guide/UM10936.pdf) |
+| PN71x0 Driver | [pn71x0.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_pn71x0/src/pn71x0.c), [pn71x0_i2c.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_pn71x0/src/pn71x0_i2c.c) | [PN7120 User Manual](https://www.nxp.com/docs/en/user-guide/UM10819.pdf), [PN7150 User Manual](https://www.nxp.com/docs/en/user-guide/UM10936.pdf) |
 | emlib | Silabs SDK | - |
 
 
 ## How it works
-WSTK writes an NDEF message to NT3H2x11 via I2C interface. Then use a NFC reader to read the updated content in NT3H2x11. 
+This example allows a PN71x0 to write a NFC message with a record that contains the follow url to a type 2 tag.
 
-This example will write a NDEF record with default URL like shown below.
-
-<img src="images/ndef_content.png" width="600">
-
-Then you can change it to other URLs by inputing it into the serial terminal.
-
-<img src="images/serial_term.png" width="600">
+<img src="images/url.png" width="800">
 
 
 ## Import Instructions
 
 0. Clone this repo.
-1. Clone [platform hardware driver](https://github.com/SiliconLabs/platform_hardware_drivers) to get [nfc_nt3h2x11](https://github.com/SiliconLabs/platform_hardware_drivers/tree/master/nfc_nt3h2x11) driver.
+1. Clone [platform hardware driver](https://github.com/SiliconLabs/platform_hardware_drivers) to get [nfc_pn71x0](https://github.com/SiliconLabs/platform_hardware_drivers/tree/master/nfc_pn71x0) driver.
 2. Create an empty c project.
     1. Click "Create New Project" in Launcher View in Simplicity Studio 5.
 
@@ -144,13 +118,13 @@ Then you can change it to other URLs by inputing it into the serial terminal.
 
         <img src="../_images/ig_io_stream.png" width="900">
 
-4. Drag in nfc_nt3h2x11 folder, either "Link" or "Copy" would work.
+4. Drag in nfc_pn71x0 folder, either "Link" or "Copy" would work.
 
-    <img src="../_images/ig_nt3h2x11.png" width="400">
+    <img src="../_images/ig_pn71x0.png" width="400">
 
 5. Drag in [nfc_library](../nfc_library) folder, either "Link" or "Copy" would work.
 
-    <img src="../_images/ig_nfc_lib_with_nt3h2x11.png" width="400">
+    <img src="../_images/ig_nfc_lib_with_pn71x0.png" width="400">
 
 6. replace project app.c with [app.c](src/app.c). Make sure you have right board macro and right pinout for your board. 
 
@@ -158,7 +132,7 @@ Then you can change it to other URLs by inputing it into the serial terminal.
 
     Board macro can be found in app.c.
 
-    <img src="../_images/ig_board_macro_with_nt3h2x11.png" width="500">
+    <img src="../_images/ig_board_macro_with_pn71x0.png" width="500">
 
     Board Number can be found on the back of boards like this.
     
@@ -173,17 +147,17 @@ Then you can change it to other URLs by inputing it into the serial terminal.
     2. Add following include path to project.
 
         ```
-        /${ProjName}/nfc_nt3h2x11/inc
+        /${ProjName}/nfc_pn71x0/inc
         /${ProjName}/nfc_library/common/inc
         /${ProjName}/nfc_library/tag/inc
+        /${ProjName}/nfc_library/nci/inc
         /${ProjName}/nfc_library/ndef/inc
         ```
 
-        <img src="../_images/ig_add_inc_paths_with_nt3h2x11.png" width="900">
+        <img src="../_images/ig_add_inc_paths_with_pn71x0.png" width="900">
 
   3. Should look like below when finish.
 
         <img src="images/ig_inc_paths.png" width="500">
 
 8. Should be able to build and run.
-

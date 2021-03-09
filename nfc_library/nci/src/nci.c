@@ -48,7 +48,8 @@
 static uint16_t nci_tml_mtu = NCI_PACKET_MAX_LEN;
 static uint8_t packet_buff[NCI_PACKET_MAX_LEN];
 static nci_evt_t nci_evt;
-static bool packet_incoming = false;
+static volatile bool packet_ready = false;
+static bool startup_event_passed = false;
 
 extern nci_err_t nci_incoming_proprietary_packet_rsp_process (uint8_t* packet_buff);
 
@@ -70,6 +71,18 @@ void nci_init(void) {
  *  Pointer to current NCI event.
  *****************************************************************************/
 nci_evt_t *nci_get_event (void) {
+
+  if (startup_event_passed) {
+      nci_err_t nci_packet_process_err  = nci_incoming_packet_process();
+
+      if (nci_packet_process_err != nci_err_none) {
+         nci_log_ln("NCI packet process error.");
+      }
+
+  } else {
+      startup_event_passed = true;
+  }
+
   return &nci_evt;
 }
 /**************************************************************************//**
@@ -78,7 +91,7 @@ nci_evt_t *nci_get_event (void) {
  *  Should be called in the NFCC interrupt ISR.
  *****************************************************************************/
 void nci_notify_incoming_packet (void) {
-  packet_incoming = true;
+  packet_ready = true;
 }
 
 /**************************************************************************//**
@@ -89,9 +102,9 @@ void nci_notify_incoming_packet (void) {
  *  true  - if there is an incoming packet to be read.
  *  false - if there is no incoming packet to be read.
  *****************************************************************************/
-bool nci_check_incoming_packet (void) {
-  return packet_incoming;
-}
+//bool nci_check_incoming_packet (void) {
+//  return packet_incoming;
+//}
 
 /**************************************************************************//**
  * @brief
@@ -122,7 +135,9 @@ nci_err_t nci_control_packet_send (nci_control_packet_t *packet) {
 
   memcpy(&packet_buff[NCI_PACKET_PAYLOAD_START_INDEX], packet->payload, packet->payload_len);
 
-  if (nci_tml_transceive(packet_buff) != nci_tml_err_none) {
+  nci_tml_err_t nci_tml_err = nci_tml_transceive(packet_buff);
+
+  if (nci_tml_err != nci_tml_err_none) {
       return nci_err_tml;
   }
 
@@ -1010,8 +1025,15 @@ static void nci_nfcee_mode_set_rsp_process (void) {
  *  Any error code.
  *****************************************************************************/
 nci_err_t nci_incoming_packet_process (void) {
-  /* Clear packet incoming flag */
-  packet_incoming = false;
+
+  if (!packet_ready) {
+      /* Clear nci event header */
+      nci_evt.header = nci_evt_none;
+      return nci_err_none;
+  }
+
+  packet_ready = false;
+
   /* Get packet */
   nci_tml_receive(packet_buff);
   /* Clear nci event header */

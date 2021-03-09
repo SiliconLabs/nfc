@@ -43,8 +43,8 @@ The following table covers most of the boards.
 | NT3H2x11 Pin | WSTK EXP Pin | Note |
 | :-----: | :-----: | :----- |
 | GND | EXP 1 | |
-| SCL | EXP 15| defined in [main.c](src/main.c) |
-| SDA | EXP 16| defined in [main.c](src/main.c) |
+| SCL | EXP 15| defined in [app.c](src/app.c) |
+| SDA | EXP 16| defined in [app.c](src/app.c) |
 | VCC | EXP 20| |
 
 In the case EXP 15 and EXP 16 are not connected, EXP 8 and EXP 10 are used for I2C. This applies to all xG21 radio boards.
@@ -52,8 +52,8 @@ In the case EXP 15 and EXP 16 are not connected, EXP 8 and EXP 10 are used for I
 | NT3H2x11 Pin | WSTK EXP Pin | Note |
 | :-----: | :-----: | :----- |
 | GND | EXP 1 | |
-| SDA | EXP 8 | defined in [main.c](src/main.c) |
-| SCL | EXP 10| defined in [main.c](src/main.c) |
+| SDA | EXP 8 | defined in [app.c](src/app.c) |
+| SCL | EXP 10| defined in [app.c](src/app.c) |
 | VCC | EXP 20| |
 
 As for BRD4309B and BRD4183A whose GPIO pins are quite limited, VCOM pins are utilized for I2C (VCOM will not be available).
@@ -61,11 +61,11 @@ As for BRD4309B and BRD4183A whose GPIO pins are quite limited, VCOM pins are ut
 | NT3H2x11 Pin | WSTK EXP Pin | Note |
 | :-----: | :-----: | :----- |
 | GND | EXP 1 | |
-| SDA | EXP 12| defined in [main.c](src/main.c) |
-| SCL | EXP 14| defined in [main.c](src/main.c) |
+| SDA | EXP 12| defined in [app.c](src/app.c) |
+| SCL | EXP 14| defined in [app.c](src/app.c) |
 | VCC | EXP 20| |
 
-If the board you are trying to use is not listed above, you can add to the top board pinout macros in [main.c](src/main.c#L50) accordingly to add support.
+If the board you are trying to use is not listed above, you can add to the top board pinout macros in [app.c](src/app.c) accordingly to add support.
 
 
 ## Project Hierarchy
@@ -81,7 +81,7 @@ If the board you are trying to use is not listed above, you can add to the top b
 
 | Layer | Source Files | Docs |
 | :----- | :----- | :----- |
-| Application | [main.c](src/main.c) | - |
+| Application | [app.c](src/app.c) | - |
 | NT3H2x11 Driver | [nt3h2x11.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11.c), [nt3h2x11_i2c.c](https://github.com/SiliconLabs/platform_hardware_drivers/blob/master/nfc_nt3h2x11/src/nt3h2x11_i2c.c) | [NT3H2111_2211.pdf](https://www.nxp.com/docs/en/data-sheet/NT3H2111_2211.pdf) |
 | emlib | Silabs SDK | - |
 
@@ -136,7 +136,7 @@ If VCOM will not be available when choosing to use I2C for this device (BRD4309B
 
 5. Drag in [nfc_library](../nfc_library) folder, either "Link" or "Copy" would work.
 
-    <img src="../_images/ig_nfc_lib.png" width="400">
+    <img src="../_images/ig_nfc_lib_with_nt3h2x11.png" width="400">
 
 6. replace project app.c with [app.c](src/app.c). Make sure you have right board macro and right pinout for your board. 
 
@@ -144,7 +144,7 @@ If VCOM will not be available when choosing to use I2C for this device (BRD4309B
 
     Board macro can be found in app.c.
 
-    <img src="../_images/ig_board_macro.png" width="500">
+    <img src="../_images/ig_board_macro_with_nt3h2x11.png" width="500">
 
     Board Number can be found on the back of boards like this.
     
@@ -163,7 +163,7 @@ If VCOM will not be available when choosing to use I2C for this device (BRD4309B
         /${ProjName}/nfc_library/common/inc
         ```
 
-        <img src="../_images/ig_add_inc_paths.png" width="900">
+        <img src="../_images/ig_add_inc_paths_with_nt3h2x11.png" width="900">
 
   3. Should look like below when finish.
 
